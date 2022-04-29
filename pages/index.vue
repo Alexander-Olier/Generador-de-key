@@ -22,26 +22,26 @@ export default {
     };
   },
   methods: {
-    generateCode() {
+    randomCode() {
       let Rlet = Math.floor(Math.random() * (4 - 0 + 0) + 0);
       let Rnum = Math.floor(Math.random() * (100 - 0 + 0) + 0);
       let letras = ["A", "B", "C", "D"];
       let ltrs = letras[Rlet];
-      let a = true;
-      let cod = ltrs + Rnum;
+      return ltrs + Rnum;
+    },
+    verificarCode() {
       let codigoFinal = null;
+      let cod = this.randomCode();
+      console.log(cod);
       while (codigoFinal == null) {
-        if (this.listCitas.find((e) => e.cita === cod)) {
-          console.log("existe");
-        } else {
+        if (this.listCitas.find((e) => e.cita !== cod)) {
           codigoFinal = { cita: cod };
         }
-        return codigoFinal;
       }
-      return this.cod;
+      return codigoFinal;
     },
     addCod() {
-      this.listCitas.push(this.generateCode());
+      this.listCitas.push(this.verificarCode());
     },
   },
 };
