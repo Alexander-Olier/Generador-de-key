@@ -39,10 +39,11 @@ export default {
       console.log("cod:" + codigocita.cita);
       while (a == true) {
         if (this.listCitas.find((e) => e.cita === codigocita.cita)) {
-          console.log("es igual");
-          a = false;
+          console.log("existe");
         } else {
+          console.log("no existe");
           this.listCitas.push(codigocita);
+          break;
         }
       }
     },
