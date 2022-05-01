@@ -22,29 +22,33 @@ export default {
     };
   },
   methods: {
-    mensaje() {
-      alert("Hola");
-    },
-    generateCode() {
+    randomCode() {
       let Rlet = Math.floor(Math.random() * (4 - 0 + 0) + 0);
       let Rnum = Math.floor(Math.random() * (100 - 0 + 0) + 0);
       let letras = ["A", "B", "C", "D"];
       let ltrs = letras[Rlet];
-      this.cod = ltrs + Rnum;
-      return this.cod;
+      return ltrs + Rnum;
     },
-    addCod() {
-      let a = true;
-      let codigocita = { cita: this.generateCode() };
-      console.log("cod:" + codigocita.cita);
-      while (a == true) {
-        if (this.listCitas.find((e) => e.cita === codigocita.cita)) {
-          console.log("es igual");
-          a = false;
+    verificarCode() {
+      let cod = this.randomCode();
+
+      let encontrado = null;
+      while (encontrado == null) {
+        if (this.listCitas.find((e) => e.cita === cod)) {
+          let codDiferente = this.randomCode();
+          if (this.listCitas.find((e) => e.cita === codDiferente)) {
+            encontrado = null;
+          } else {
+            console.log("entra algo diferente");
+            return (encontrado = codDiferente);
+          }
         } else {
-          this.listCitas.push(codigocita);
+          return (encontrado = cod);
         }
       }
+    },
+    addCod() {
+      this.listCitas.push({ cita: this.verificarCode() });
     },
   },
 };
