@@ -30,18 +30,25 @@ export default {
       return ltrs + Rnum;
     },
     verificarCode() {
-      let codigoFinal = null;
       let cod = this.randomCode();
-      console.log(cod);
-      while (codigoFinal == null) {
-        if (this.listCitas.find((e) => e.cita !== cod)) {
-          codigoFinal = { cita: cod };
+
+      let encontrado = null;
+      while (encontrado == null) {
+        if (this.listCitas.find((e) => e.cita === cod)) {
+          let codDiferente = this.randomCode();
+          if (this.listCitas.find((e) => e.cita === codDiferente)) {
+            encontrado = null;
+          } else {
+            console.log("entra algo diferente");
+            return (encontrado = codDiferente);
+          }
+        } else {
+          return (encontrado = cod);
         }
       }
-      return codigoFinal;
     },
     addCod() {
-      this.listCitas.push(this.verificarCode());
+      this.listCitas.push({ cita: this.verificarCode() });
     },
   },
 };
